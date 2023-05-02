@@ -1,0 +1,16 @@
+age,years since driver’s license,monthly net income,driving style,accident probability
+>30,5-7,2000-3500,insecure,low accident probability
+20-25,5-7,>3500,secure,high accident probability
+>30,>7,1000-2000,reckless,low accident probability
+20-25,2-5,1000-2000,slightly insecure,high accident probability
+>30,>7,>3500,secure,low accident probability
+>30,<2,1000-2000,insecure,high accident probability
+20-25,2-5,2000-3500,slightly insecure,high accident probability
+25-30,>7,<1000,slightly insecure,low accident probability
+20-25,<2,2000-3500,secure,high accident probability
+25-30,<2,<1000,insecure,high accident probability
+>30,<2,2000-3500,secure,high accident probability
+20-25,5-7,<1000,reckless,high accident probability
+25-30,>7,1000-2000,insecure,high accident probability
+25-30,>7,1000-2000,reckless,high accident probability
+>30,<2,1000-2000,secure,high accident probability

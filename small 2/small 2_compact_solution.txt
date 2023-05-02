@@ -1,0 +1,34 @@
+General information:
+	|S| = 4
+	remaining columns: ['gym nearby?', 'Do I have a partner to train with?', 'Do I have gym home equipment?', 'gym vs. workout at home']
+Entropy(S) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+information gain calculation:
+	gym nearby?:
+		Entropy(S_no) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+		Entropy(S_yes) = (2/2) * log_2(2/2) = 0.0
+		Gain(S,gym nearby?) = (2/4) * Entropy(S_no) + (2/4) * Entropy(S_yes) = 0.311
+	Do I have a partner to train with?:
+		Entropy(S_no) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+		Entropy(S_yes) = (1/1) * log_2(1/1) = 0.0
+		Gain(S,Do I have a partner to train with?) = (3/4) * Entropy(S_no) + (1/4) * Entropy(S_yes) = 0.123
+	Do I have gym home equipment?:
+		Entropy(S_no) = (2/2) * log_2(2/2) = 0.0
+		Entropy(S_yes) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+		Gain(S,Do I have gym home equipment?) = (2/4) * Entropy(S_no) + (2/4) * Entropy(S_yes) = 0.311
+max{Gain(S,gym nearby?), Gain(S,Do I have a partner to train with?), Gain(S,Do I have gym home equipment?)} = Gain(S,gym nearby?) --> split at gym nearby?
+
+
+root = Do I have gym home equipment?
+General information:
+	|S| = 2
+	remaining columns: ['Do I have a partner to train with?', 'Do I have gym home equipment?', 'gym vs. workout at home']
+Entropy(S) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+information gain calculation:
+	Do I have a partner to train with?:
+		Entropy(S_no) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+		Gain(S,Do I have a partner to train with?) = (2/2) * Entropy(S_no) = 0.0
+	Do I have gym home equipment?:
+		Entropy(S_no) = (1/1) * log_2(1/1) = 0.0
+		Entropy(S_yes) = (1/1) * log_2(1/1) = 0.0
+		Gain(S,Do I have gym home equipment?) = (1/2) * Entropy(S_no) + (1/2) * Entropy(S_yes) = 1.0
+max{Gain(S,Do I have a partner to train with?), Gain(S,Do I have gym home equipment?)} = Gain(S,Do I have gym home equipment?) --> split at Do I have gym home equipment?

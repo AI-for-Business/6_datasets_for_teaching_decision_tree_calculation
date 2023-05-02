@@ -1,0 +1,112 @@
+General information:
+	|S| = 10
+	remaining columns: ['smoking', 'diet', 'health']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		is healthy: 8
+		is unhealthy: 2
+	Calculate the entropy:
+		Entropy(S) = (8/10) * log_2(8/10) + (2/10) * log_2(2/10) = 0.722
+Calculate the information gain of all attributes:
+	smoking:
+		Calculate the entropy of all values of the attribute:
+			regular smoker:
+				Count the occurrence of each target attribute value:
+					is healthy: 3
+					is unhealthy: 1
+				Calculate the entropy:
+					Entropy(S_regular smoker) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+			casual smoker:
+				Count the occurrence of each target attribute value:
+					is healthy: 2
+					is unhealthy: 1
+				Calculate the entropy:
+					Entropy(S_casual smoker) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+			nonsmoker:
+				Count the occurrence of each target attribute value:
+					is healthy: 3
+				Calculate the entropy:
+					Entropy(S_nonsmoker) = (3/3) * log_2(3/3) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,smoking) = (4/10) * Entropy(S_regular smoker) + (3/10) * Entropy(S_casual smoker) + (3/10) * Entropy(S_nonsmoker) = 0.122
+	diet:
+		Calculate the entropy of all values of the attribute:
+			vegan:
+				Count the occurrence of each target attribute value:
+					is healthy: 3
+				Calculate the entropy:
+					Entropy(S_vegan) = (3/3) * log_2(3/3) = 0.0
+			vegetarian:
+				Count the occurrence of each target attribute value:
+					is healthy: 2
+				Calculate the entropy:
+					Entropy(S_vegetarian) = (2/2) * log_2(2/2) = 0.0
+			with meat:
+				Count the occurrence of each target attribute value:
+					is healthy: 3
+					is unhealthy: 2
+				Calculate the entropy:
+					Entropy(S_with meat) = (3/5) * log_2(3/5) + (2/5) * log_2(2/5) = 0.971
+		Calculate the information gain for the attribute:
+			Gain(S,diet) = (3/10) * Entropy(S_vegan) + (2/10) * Entropy(S_vegetarian) + (5/10) * Entropy(S_with meat) = 0.236
+Determine the best attribute for splitting: 
+	max{Gain(S,smoking), Gain(S,diet)} = Gain(S,diet) --> split at diet
+Create the subtree:
+	Create the node diet
+	Create a child node for every value of diet:
+		vegan:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create is healthy as the child node.
+			Create an edge from diet to is healthy with the label vegan.
+		vegetarian:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create is healthy as the child node.
+			Create an edge from diet to is healthy with the label vegetarian.
+		with meat:
+			There is more than one target attribute value left (i. e. we have no perfect entropy) and we can perform an additional split.
+			Split at the attribute which leads to the highest information gain. --> Create smoking as the child node.
+			Create an edge from diet to smoking with the label with meat.
+
+
+This is the approach for the creation of the subtree with smoking as the root.
+General information:
+	|S| = 5
+	remaining columns: ['smoking', 'health']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		is healthy: 3
+		is unhealthy: 2
+	Calculate the entropy:
+		Entropy(S) = (3/5) * log_2(3/5) + (2/5) * log_2(2/5) = 0.971
+Calculate the information gain of all attributes:
+	smoking:
+		Calculate the entropy of all values of the attribute:
+			regular smoker:
+				Count the occurrence of each target attribute value:
+					is unhealthy: 1
+				Calculate the entropy:
+					Entropy(S_regular smoker) = (1/1) * log_2(1/1) = 0.0
+			nonsmoker:
+				Count the occurrence of each target attribute value:
+					is healthy: 3
+				Calculate the entropy:
+					Entropy(S_nonsmoker) = (3/3) * log_2(3/3) = 0.0
+			casual smoker:
+				Count the occurrence of each target attribute value:
+					is unhealthy: 1
+				Calculate the entropy:
+					Entropy(S_casual smoker) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,smoking) = (1/5) * Entropy(S_regular smoker) + (3/5) * Entropy(S_nonsmoker) + (1/5) * Entropy(S_casual smoker) = 0.971
+Determine the best attribute for splitting: 
+	max{Gain(S,smoking)} = Gain(S,smoking) --> split at smoking
+Create the subtree:
+	Create the node smoking
+	Create a child node for every value of smoking:
+		regular smoker:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create is unhealthy as the child node.
+			Create an edge from smoking to is unhealthy with the label regular smoker.
+		nonsmoker:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create is healthy as the child node.
+			Create an edge from smoking to is healthy with the label nonsmoker.
+		casual smoker:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create is unhealthy as the child node.
+			Create an edge from smoking to is unhealthy with the label casual smoker.

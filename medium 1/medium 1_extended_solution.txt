@@ -1,0 +1,347 @@
+General information:
+	|S| = 15
+	remaining columns: ['age', 'years since driver’s license', 'monthly net income', 'driving style', 'accident probability']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		high accident probability: 11
+		low accident probability: 4
+	Calculate the entropy:
+		Entropy(S) = (11/15) * log_2(11/15) + (4/15) * log_2(4/15) = 0.837
+Calculate the information gain of all attributes:
+	age:
+		Calculate the entropy of all values of the attribute:
+			>30:
+				Count the occurrence of each target attribute value:
+					low accident probability: 3
+					high accident probability: 3
+				Calculate the entropy:
+					Entropy(S_>30) = (3/6) * log_2(3/6) + (3/6) * log_2(3/6) = 1.0
+			20-25:
+				Count the occurrence of each target attribute value:
+					high accident probability: 5
+				Calculate the entropy:
+					Entropy(S_20-25) = (5/5) * log_2(5/5) = 0.0
+			25-30:
+				Count the occurrence of each target attribute value:
+					high accident probability: 3
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_25-30) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+		Calculate the information gain for the attribute:
+			Gain(S,age) = (6/15) * Entropy(S_>30) + (5/15) * Entropy(S_20-25) + (4/15) * Entropy(S_25-30) = 0.22
+	years since driver’s license:
+		Calculate the entropy of all values of the attribute:
+			5-7:
+				Count the occurrence of each target attribute value:
+					high accident probability: 2
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_5-7) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+			>7:
+				Count the occurrence of each target attribute value:
+					low accident probability: 3
+					high accident probability: 2
+				Calculate the entropy:
+					Entropy(S_>7) = (3/5) * log_2(3/5) + (2/5) * log_2(2/5) = 0.971
+			2-5:
+				Count the occurrence of each target attribute value:
+					high accident probability: 2
+				Calculate the entropy:
+					Entropy(S_2-5) = (2/2) * log_2(2/2) = 0.0
+			<2:
+				Count the occurrence of each target attribute value:
+					high accident probability: 5
+				Calculate the entropy:
+					Entropy(S_<2) = (5/5) * log_2(5/5) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,years since driver’s license) = (3/15) * Entropy(S_5-7) + (5/15) * Entropy(S_>7) + (2/15) * Entropy(S_2-5) + (5/15) * Entropy(S_<2) = 0.329
+	monthly net income:
+		Calculate the entropy of all values of the attribute:
+			2000-3500:
+				Count the occurrence of each target attribute value:
+					high accident probability: 3
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_2000-3500) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+			>3500:
+				Count the occurrence of each target attribute value:
+					high accident probability: 1
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_>3500) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+			1000-2000:
+				Count the occurrence of each target attribute value:
+					high accident probability: 5
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_1000-2000) = (5/6) * log_2(5/6) + (1/6) * log_2(1/6) = 0.65
+			<1000:
+				Count the occurrence of each target attribute value:
+					high accident probability: 2
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_<1000) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+		Calculate the information gain for the attribute:
+			Gain(S,monthly net income) = (4/15) * Entropy(S_2000-3500) + (2/15) * Entropy(S_>3500) + (6/15) * Entropy(S_1000-2000) + (3/15) * Entropy(S_<1000) = 0.043
+	driving style:
+		Calculate the entropy of all values of the attribute:
+			insecure:
+				Count the occurrence of each target attribute value:
+					high accident probability: 3
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_insecure) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+			secure:
+				Count the occurrence of each target attribute value:
+					high accident probability: 4
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_secure) = (4/5) * log_2(4/5) + (1/5) * log_2(1/5) = 0.722
+			reckless:
+				Count the occurrence of each target attribute value:
+					high accident probability: 2
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_reckless) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+			slightly insecure:
+				Count the occurrence of each target attribute value:
+					high accident probability: 2
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_slightly insecure) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+		Calculate the information gain for the attribute:
+			Gain(S,driving style) = (4/15) * Entropy(S_insecure) + (5/15) * Entropy(S_secure) + (3/15) * Entropy(S_reckless) + (3/15) * Entropy(S_slightly insecure) = 0.012
+Determine the best attribute for splitting: 
+	max{Gain(S,age), Gain(S,years since driver’s license), Gain(S,monthly net income), Gain(S,driving style)} = Gain(S,years since driver’s license) --> split at years since driver’s license
+Create the subtree:
+	Create the node years since driver’s license
+	Create a child node for every value of years since driver’s license:
+		5-7:
+			There is more than one target attribute value left (i. e. we have no perfect entropy) and we can perform an additional split.
+			Split at the attribute which leads to the highest information gain. --> Create age as the child node.
+			Create an edge from years since driver’s license to age with the label 5-7.
+		>7:
+			There is more than one target attribute value left (i. e. we have no perfect entropy) and we can perform an additional split.
+			Split at the attribute which leads to the highest information gain. --> Create driving style as the child node.
+			Create an edge from years since driver’s license to driving style with the label >7.
+		2-5:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create high accident probability as the child node.
+			Create an edge from years since driver’s license to high accident probability with the label 2-5.
+		<2:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create high accident probability as the child node.
+			Create an edge from years since driver’s license to high accident probability with the label <2.
+
+
+This is the approach for the creation of the subtree with age as the root.
+General information:
+	|S| = 3
+	remaining columns: ['age', 'monthly net income', 'driving style', 'accident probability']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		high accident probability: 2
+		low accident probability: 1
+	Calculate the entropy:
+		Entropy(S) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+Calculate the information gain of all attributes:
+	age:
+		Calculate the entropy of all values of the attribute:
+			>30:
+				Count the occurrence of each target attribute value:
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_>30) = (1/1) * log_2(1/1) = 0.0
+			20-25:
+				Count the occurrence of each target attribute value:
+					high accident probability: 2
+				Calculate the entropy:
+					Entropy(S_20-25) = (2/2) * log_2(2/2) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,age) = (1/3) * Entropy(S_>30) + (2/3) * Entropy(S_20-25) = 0.918
+	monthly net income:
+		Calculate the entropy of all values of the attribute:
+			2000-3500:
+				Count the occurrence of each target attribute value:
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_2000-3500) = (1/1) * log_2(1/1) = 0.0
+			>3500:
+				Count the occurrence of each target attribute value:
+					high accident probability: 1
+				Calculate the entropy:
+					Entropy(S_>3500) = (1/1) * log_2(1/1) = 0.0
+			<1000:
+				Count the occurrence of each target attribute value:
+					high accident probability: 1
+				Calculate the entropy:
+					Entropy(S_<1000) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,monthly net income) = (1/3) * Entropy(S_2000-3500) + (1/3) * Entropy(S_>3500) + (1/3) * Entropy(S_<1000) = 0.918
+	driving style:
+		Calculate the entropy of all values of the attribute:
+			insecure:
+				Count the occurrence of each target attribute value:
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_insecure) = (1/1) * log_2(1/1) = 0.0
+			secure:
+				Count the occurrence of each target attribute value:
+					high accident probability: 1
+				Calculate the entropy:
+					Entropy(S_secure) = (1/1) * log_2(1/1) = 0.0
+			reckless:
+				Count the occurrence of each target attribute value:
+					high accident probability: 1
+				Calculate the entropy:
+					Entropy(S_reckless) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,driving style) = (1/3) * Entropy(S_insecure) + (1/3) * Entropy(S_secure) + (1/3) * Entropy(S_reckless) = 0.918
+Determine the best attribute for splitting: 
+	max{Gain(S,age), Gain(S,monthly net income), Gain(S,driving style)} = Gain(S,age) --> split at age
+Create the subtree:
+	Create the node age
+	Create a child node for every value of age:
+		>30:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create low accident probability as the child node.
+			Create an edge from age to low accident probability with the label >30.
+		20-25:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create high accident probability as the child node.
+			Create an edge from age to high accident probability with the label 20-25.
+
+
+This is the approach for the creation of the subtree with driving style as the root.
+General information:
+	|S| = 5
+	remaining columns: ['age', 'monthly net income', 'driving style', 'accident probability']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		low accident probability: 3
+		high accident probability: 2
+	Calculate the entropy:
+		Entropy(S) = (3/5) * log_2(3/5) + (2/5) * log_2(2/5) = 0.971
+Calculate the information gain of all attributes:
+	age:
+		Calculate the entropy of all values of the attribute:
+			>30:
+				Count the occurrence of each target attribute value:
+					low accident probability: 2
+				Calculate the entropy:
+					Entropy(S_>30) = (2/2) * log_2(2/2) = 0.0
+			25-30:
+				Count the occurrence of each target attribute value:
+					high accident probability: 2
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_25-30) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+		Calculate the information gain for the attribute:
+			Gain(S,age) = (2/5) * Entropy(S_>30) + (3/5) * Entropy(S_25-30) = 0.42
+	monthly net income:
+		Calculate the entropy of all values of the attribute:
+			1000-2000:
+				Count the occurrence of each target attribute value:
+					high accident probability: 2
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_1000-2000) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+			>3500:
+				Count the occurrence of each target attribute value:
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_>3500) = (1/1) * log_2(1/1) = 0.0
+			<1000:
+				Count the occurrence of each target attribute value:
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_<1000) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,monthly net income) = (3/5) * Entropy(S_1000-2000) + (1/5) * Entropy(S_>3500) + (1/5) * Entropy(S_<1000) = 0.42
+	driving style:
+		Calculate the entropy of all values of the attribute:
+			reckless:
+				Count the occurrence of each target attribute value:
+					low accident probability: 1
+					high accident probability: 1
+				Calculate the entropy:
+					Entropy(S_reckless) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+			secure:
+				Count the occurrence of each target attribute value:
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_secure) = (1/1) * log_2(1/1) = 0.0
+			slightly insecure:
+				Count the occurrence of each target attribute value:
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_slightly insecure) = (1/1) * log_2(1/1) = 0.0
+			insecure:
+				Count the occurrence of each target attribute value:
+					high accident probability: 1
+				Calculate the entropy:
+					Entropy(S_insecure) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,driving style) = (2/5) * Entropy(S_reckless) + (1/5) * Entropy(S_secure) + (1/5) * Entropy(S_slightly insecure) + (1/5) * Entropy(S_insecure) = 0.571
+Determine the best attribute for splitting: 
+	max{Gain(S,age), Gain(S,monthly net income), Gain(S,driving style)} = Gain(S,driving style) --> split at driving style
+Create the subtree:
+	Create the node driving style
+	Create a child node for every value of driving style:
+		reckless:
+			There is more than one target attribute value left (i. e. we have no perfect entropy) and we can perform an additional split.
+			Split at the attribute which leads to the highest information gain. --> Create age as the child node.
+			Create an edge from driving style to age with the label reckless.
+		secure:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create low accident probability as the child node.
+			Create an edge from driving style to low accident probability with the label secure.
+		slightly insecure:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create low accident probability as the child node.
+			Create an edge from driving style to low accident probability with the label slightly insecure.
+		insecure:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create high accident probability as the child node.
+			Create an edge from driving style to high accident probability with the label insecure.
+
+
+This is the approach for the creation of the subtree with age as the root.
+General information:
+	|S| = 2
+	remaining columns: ['age', 'monthly net income', 'accident probability']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		low accident probability: 1
+		high accident probability: 1
+	Calculate the entropy:
+		Entropy(S) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+Calculate the information gain of all attributes:
+	age:
+		Calculate the entropy of all values of the attribute:
+			>30:
+				Count the occurrence of each target attribute value:
+					low accident probability: 1
+				Calculate the entropy:
+					Entropy(S_>30) = (1/1) * log_2(1/1) = 0.0
+			25-30:
+				Count the occurrence of each target attribute value:
+					high accident probability: 1
+				Calculate the entropy:
+					Entropy(S_25-30) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,age) = (1/2) * Entropy(S_>30) + (1/2) * Entropy(S_25-30) = 1.0
+	monthly net income:
+		Calculate the entropy of all values of the attribute:
+			1000-2000:
+				Count the occurrence of each target attribute value:
+					low accident probability: 1
+					high accident probability: 1
+				Calculate the entropy:
+					Entropy(S_1000-2000) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+		Calculate the information gain for the attribute:
+			Gain(S,monthly net income) = (2/2) * Entropy(S_1000-2000) = 0.0
+Determine the best attribute for splitting: 
+	max{Gain(S,age), Gain(S,monthly net income)} = Gain(S,age) --> split at age
+Create the subtree:
+	Create the node age
+	Create a child node for every value of age:
+		>30:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create low accident probability as the child node.
+			Create an edge from age to low accident probability with the label >30.
+		25-30:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create high accident probability as the child node.
+			Create an edge from age to high accident probability with the label 25-30.

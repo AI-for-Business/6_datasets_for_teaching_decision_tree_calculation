@@ -1,0 +1,90 @@
+General information:
+	|S| = 5
+	remaining columns: ['Do I feel like cooking?', 'any classes at the university today?', 'where to eat?']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		eat at home: 4
+		eat at the cafeteria: 1
+	Calculate the entropy:
+		Entropy(S) = (4/5) * log_2(4/5) + (1/5) * log_2(1/5) = 0.722
+Calculate the information gain of all attributes:
+	Do I feel like cooking?:
+		Calculate the entropy of all values of the attribute:
+			yes:
+				Count the occurrence of each target attribute value:
+					eat at home: 3
+				Calculate the entropy:
+					Entropy(S_yes) = (3/3) * log_2(3/3) = 0.0
+			no:
+				Count the occurrence of each target attribute value:
+					eat at home: 1
+					eat at the cafeteria: 1
+				Calculate the entropy:
+					Entropy(S_no) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+		Calculate the information gain for the attribute:
+			Gain(S,Do I feel like cooking?) = (3/5) * Entropy(S_yes) + (2/5) * Entropy(S_no) = 0.322
+	any classes at the university today?:
+		Calculate the entropy of all values of the attribute:
+			no:
+				Count the occurrence of each target attribute value:
+					eat at home: 3
+				Calculate the entropy:
+					Entropy(S_no) = (3/3) * log_2(3/3) = 0.0
+			yes:
+				Count the occurrence of each target attribute value:
+					eat at the cafeteria: 1
+					eat at home: 1
+				Calculate the entropy:
+					Entropy(S_yes) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+		Calculate the information gain for the attribute:
+			Gain(S,any classes at the university today?) = (3/5) * Entropy(S_no) + (2/5) * Entropy(S_yes) = 0.322
+Determine the best attribute for splitting: 
+	max{Gain(S,Do I feel like cooking?), Gain(S,any classes at the university today?)} = Gain(S,Do I feel like cooking?) --> split at Do I feel like cooking?
+Create the subtree:
+	Create the node Do I feel like cooking?
+	Create a child node for every value of Do I feel like cooking?:
+		yes:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create eat at home as the child node.
+			Create an edge from Do I feel like cooking? to eat at home with the label yes.
+		no:
+			There is more than one target attribute value left (i. e. we have no perfect entropy) and we can perform an additional split.
+			Split at the attribute which leads to the highest information gain. --> Create any classes at the university today? as the child node.
+			Create an edge from Do I feel like cooking? to any classes at the university today? with the label no.
+
+
+This is the approach for the creation of the subtree with any classes at the university today? as the root.
+General information:
+	|S| = 2
+	remaining columns: ['any classes at the university today?', 'where to eat?']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		eat at home: 1
+		eat at the cafeteria: 1
+	Calculate the entropy:
+		Entropy(S) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+Calculate the information gain of all attributes:
+	any classes at the university today?:
+		Calculate the entropy of all values of the attribute:
+			no:
+				Count the occurrence of each target attribute value:
+					eat at home: 1
+				Calculate the entropy:
+					Entropy(S_no) = (1/1) * log_2(1/1) = 0.0
+			yes:
+				Count the occurrence of each target attribute value:
+					eat at the cafeteria: 1
+				Calculate the entropy:
+					Entropy(S_yes) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,any classes at the university today?) = (1/2) * Entropy(S_no) + (1/2) * Entropy(S_yes) = 1.0
+Determine the best attribute for splitting: 
+	max{Gain(S,any classes at the university today?)} = Gain(S,any classes at the university today?) --> split at any classes at the university today?
+Create the subtree:
+	Create the node any classes at the university today?
+	Create a child node for every value of any classes at the university today?:
+		no:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create eat at home as the child node.
+			Create an edge from any classes at the university today? to eat at home with the label no.
+		yes:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create eat at the cafeteria as the child node.
+			Create an edge from any classes at the university today? to eat at the cafeteria with the label yes.

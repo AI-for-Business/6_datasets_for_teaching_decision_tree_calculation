@@ -1,0 +1,11 @@
+smoking,diet,health
+regular smoker,vegan,is healthy
+regular smoker,vegetarian,is healthy
+regular smoker,with meat,is unhealthy
+regular smoker,vegan,is healthy
+casual smoker,vegetarian,is healthy
+nonsmoker,with meat,is healthy
+nonsmoker,with meat,is healthy
+nonsmoker,with meat,is healthy
+casual smoker,vegan,is healthy
+casual smoker,with meat,is unhealthy

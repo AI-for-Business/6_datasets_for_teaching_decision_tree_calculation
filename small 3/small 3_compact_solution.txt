@@ -1,0 +1,30 @@
+General information:
+	|S| = 10
+	remaining columns: ['smoking', 'diet', 'health']
+Entropy(S) = (8/10) * log_2(8/10) + (2/10) * log_2(2/10) = 0.722
+information gain calculation:
+	smoking:
+		Entropy(S_regular smoker) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+		Entropy(S_casual smoker) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+		Entropy(S_nonsmoker) = (3/3) * log_2(3/3) = 0.0
+		Gain(S,smoking) = (4/10) * Entropy(S_regular smoker) + (3/10) * Entropy(S_casual smoker) + (3/10) * Entropy(S_nonsmoker) = 0.122
+	diet:
+		Entropy(S_vegan) = (3/3) * log_2(3/3) = 0.0
+		Entropy(S_vegetarian) = (2/2) * log_2(2/2) = 0.0
+		Entropy(S_with meat) = (3/5) * log_2(3/5) + (2/5) * log_2(2/5) = 0.971
+		Gain(S,diet) = (3/10) * Entropy(S_vegan) + (2/10) * Entropy(S_vegetarian) + (5/10) * Entropy(S_with meat) = 0.236
+max{Gain(S,smoking), Gain(S,diet)} = Gain(S,diet) --> split at diet
+
+
+root = smoking
+General information:
+	|S| = 5
+	remaining columns: ['smoking', 'health']
+Entropy(S) = (3/5) * log_2(3/5) + (2/5) * log_2(2/5) = 0.971
+information gain calculation:
+	smoking:
+		Entropy(S_regular smoker) = (1/1) * log_2(1/1) = 0.0
+		Entropy(S_nonsmoker) = (3/3) * log_2(3/3) = 0.0
+		Entropy(S_casual smoker) = (1/1) * log_2(1/1) = 0.0
+		Gain(S,smoking) = (1/5) * Entropy(S_regular smoker) + (3/5) * Entropy(S_nonsmoker) + (1/5) * Entropy(S_casual smoker) = 0.971
+max{Gain(S,smoking)} = Gain(S,smoking) --> split at smoking

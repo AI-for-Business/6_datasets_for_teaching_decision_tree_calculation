@@ -1,0 +1,380 @@
+General information:
+	|S| = 25
+	remaining columns: ['do sports', 'compliance with current hygiene measures', 'pre-existing conditions', 'infection symptoms']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		mild infection symptoms: 15
+		severe infection symptoms: 10
+	Calculate the entropy:
+		Entropy(S) = (15/25) * log_2(15/25) + (10/25) * log_2(10/25) = 0.971
+Calculate the information gain of all attributes:
+	do sports:
+		Calculate the entropy of all values of the attribute:
+			regularly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 8
+					severe infection symptoms: 2
+				Calculate the entropy:
+					Entropy(S_regularly) = (8/10) * log_2(8/10) + (2/10) * log_2(2/10) = 0.722
+			not at all:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 6
+					mild infection symptoms: 2
+				Calculate the entropy:
+					Entropy(S_not at all) = (6/8) * log_2(6/8) + (2/8) * log_2(2/8) = 0.811
+			irregularly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 3
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_irregularly) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+			on a professional level:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 2
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_on a professional level) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+		Calculate the information gain for the attribute:
+			Gain(S,do sports) = (10/25) * Entropy(S_regularly) + (8/25) * Entropy(S_not at all) + (4/25) * Entropy(S_irregularly) + (3/25) * Entropy(S_on a professional level) = 0.183
+	compliance with current hygiene measures:
+		Calculate the entropy of all values of the attribute:
+			pretty strictly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 4
+					severe infection symptoms: 3
+				Calculate the entropy:
+					Entropy(S_pretty strictly) = (4/7) * log_2(4/7) + (3/7) * log_2(3/7) = 0.985
+			not at all:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 4
+					mild infection symptoms: 2
+				Calculate the entropy:
+					Entropy(S_not at all) = (4/6) * log_2(4/6) + (2/6) * log_2(2/6) = 0.918
+			somewhat strictly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 3
+					severe infection symptoms: 3
+				Calculate the entropy:
+					Entropy(S_somewhat strictly) = (3/6) * log_2(3/6) + (3/6) * log_2(3/6) = 1.0
+			very strictly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 6
+				Calculate the entropy:
+					Entropy(S_very strictly) = (6/6) * log_2(6/6) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,compliance with current hygiene measures) = (7/25) * Entropy(S_pretty strictly) + (6/25) * Entropy(S_not at all) + (6/25) * Entropy(S_somewhat strictly) + (6/25) * Entropy(S_very strictly) = 0.235
+	pre-existing conditions:
+		Calculate the entropy of all values of the attribute:
+			heart disease:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 3
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_heart disease) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+			none:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 7
+				Calculate the entropy:
+					Entropy(S_none) = (7/7) * log_2(7/7) = 0.0
+			kidney disease:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 4
+					mild infection symptoms: 4
+				Calculate the entropy:
+					Entropy(S_kidney disease) = (4/8) * log_2(4/8) + (4/8) * log_2(4/8) = 1.0
+			lung disease:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 5
+					mild infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_lung disease) = (5/6) * log_2(5/6) + (1/6) * log_2(1/6) = 0.65
+		Calculate the information gain for the attribute:
+			Gain(S,pre-existing conditions) = (4/25) * Entropy(S_heart disease) + (7/25) * Entropy(S_none) + (8/25) * Entropy(S_kidney disease) + (6/25) * Entropy(S_lung disease) = 0.365
+Determine the best attribute for splitting: 
+	max{Gain(S,do sports), Gain(S,compliance with current hygiene measures), Gain(S,pre-existing conditions)} = Gain(S,pre-existing conditions) --> split at pre-existing conditions
+Create the subtree:
+	Create the node pre-existing conditions
+	Create a child node for every value of pre-existing conditions:
+		heart disease:
+			There is more than one target attribute value left (i. e. we have no perfect entropy) and we can perform an additional split.
+			Split at the attribute which leads to the highest information gain. --> Create do sports as the child node.
+			Create an edge from pre-existing conditions to do sports with the label heart disease.
+		none:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create mild infection symptoms as the child node.
+			Create an edge from pre-existing conditions to mild infection symptoms with the label none.
+		kidney disease:
+			There is more than one target attribute value left (i. e. we have no perfect entropy) and we can perform an additional split.
+			Split at the attribute which leads to the highest information gain. --> Create do sports as the child node.
+			Create an edge from pre-existing conditions to do sports with the label kidney disease.
+		lung disease:
+			There is more than one target attribute value left (i. e. we have no perfect entropy) and we can perform an additional split.
+			Split at the attribute which leads to the highest information gain. --> Create compliance with current hygiene measures as the child node.
+			Create an edge from pre-existing conditions to compliance with current hygiene measures with the label lung disease.
+
+
+This is the approach for the creation of the subtree with do sports as the root.
+General information:
+	|S| = 4
+	remaining columns: ['do sports', 'compliance with current hygiene measures', 'infection symptoms']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		mild infection symptoms: 3
+		severe infection symptoms: 1
+	Calculate the entropy:
+		Entropy(S) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+Calculate the information gain of all attributes:
+	do sports:
+		Calculate the entropy of all values of the attribute:
+			regularly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_regularly) = (1/1) * log_2(1/1) = 0.0
+			not at all:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_not at all) = (1/1) * log_2(1/1) = 0.0
+			irregularly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 2
+				Calculate the entropy:
+					Entropy(S_irregularly) = (2/2) * log_2(2/2) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,do sports) = (1/4) * Entropy(S_regularly) + (1/4) * Entropy(S_not at all) + (2/4) * Entropy(S_irregularly) = 0.811
+	compliance with current hygiene measures:
+		Calculate the entropy of all values of the attribute:
+			pretty strictly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_pretty strictly) = (1/1) * log_2(1/1) = 0.0
+			somewhat strictly:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_somewhat strictly) = (1/1) * log_2(1/1) = 0.0
+			very strictly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 2
+				Calculate the entropy:
+					Entropy(S_very strictly) = (2/2) * log_2(2/2) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,compliance with current hygiene measures) = (1/4) * Entropy(S_pretty strictly) + (1/4) * Entropy(S_somewhat strictly) + (2/4) * Entropy(S_very strictly) = 0.811
+Determine the best attribute for splitting: 
+	max{Gain(S,do sports), Gain(S,compliance with current hygiene measures)} = Gain(S,do sports) --> split at do sports
+Create the subtree:
+	Create the node do sports
+	Create a child node for every value of do sports:
+		regularly:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create mild infection symptoms as the child node.
+			Create an edge from do sports to mild infection symptoms with the label regularly.
+		not at all:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create severe infection symptoms as the child node.
+			Create an edge from do sports to severe infection symptoms with the label not at all.
+		irregularly:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create mild infection symptoms as the child node.
+			Create an edge from do sports to mild infection symptoms with the label irregularly.
+
+
+This is the approach for the creation of the subtree with do sports as the root.
+General information:
+	|S| = 8
+	remaining columns: ['do sports', 'compliance with current hygiene measures', 'infection symptoms']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		severe infection symptoms: 4
+		mild infection symptoms: 4
+	Calculate the entropy:
+		Entropy(S) = (4/8) * log_2(4/8) + (4/8) * log_2(4/8) = 1.0
+Calculate the information gain of all attributes:
+	do sports:
+		Calculate the entropy of all values of the attribute:
+			not at all:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 3
+					mild infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_not at all) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+			regularly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 3
+				Calculate the entropy:
+					Entropy(S_regularly) = (3/3) * log_2(3/3) = 0.0
+			irregularly:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_irregularly) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,do sports) = (4/8) * Entropy(S_not at all) + (3/8) * Entropy(S_regularly) + (1/8) * Entropy(S_irregularly) = 0.594
+	compliance with current hygiene measures:
+		Calculate the entropy of all values of the attribute:
+			pretty strictly:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 2
+					mild infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_pretty strictly) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+			somewhat strictly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 1
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_somewhat strictly) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+			not at all:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 1
+					mild infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_not at all) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+			very strictly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_very strictly) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,compliance with current hygiene measures) = (3/8) * Entropy(S_pretty strictly) + (2/8) * Entropy(S_somewhat strictly) + (2/8) * Entropy(S_not at all) + (1/8) * Entropy(S_very strictly) = 0.156
+Determine the best attribute for splitting: 
+	max{Gain(S,do sports), Gain(S,compliance with current hygiene measures)} = Gain(S,do sports) --> split at do sports
+Create the subtree:
+	Create the node do sports
+	Create a child node for every value of do sports:
+		not at all:
+			There is more than one target attribute value left (i. e. we have no perfect entropy) and we can perform an additional split.
+			Split at the attribute which leads to the highest information gain. --> Create compliance with current hygiene measures as the child node.
+			Create an edge from do sports to compliance with current hygiene measures with the label not at all.
+		regularly:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create mild infection symptoms as the child node.
+			Create an edge from do sports to mild infection symptoms with the label regularly.
+		irregularly:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create severe infection symptoms as the child node.
+			Create an edge from do sports to severe infection symptoms with the label irregularly.
+
+
+This is the approach for the creation of the subtree with compliance with current hygiene measures as the root.
+General information:
+	|S| = 4
+	remaining columns: ['compliance with current hygiene measures', 'infection symptoms']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		severe infection symptoms: 3
+		mild infection symptoms: 1
+	Calculate the entropy:
+		Entropy(S) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+Calculate the information gain of all attributes:
+	compliance with current hygiene measures:
+		Calculate the entropy of all values of the attribute:
+			pretty strictly:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_pretty strictly) = (1/1) * log_2(1/1) = 0.0
+			not at all:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_not at all) = (1/1) * log_2(1/1) = 0.0
+			very strictly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_very strictly) = (1/1) * log_2(1/1) = 0.0
+			somewhat strictly:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_somewhat strictly) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,compliance with current hygiene measures) = (1/4) * Entropy(S_pretty strictly) + (1/4) * Entropy(S_not at all) + (1/4) * Entropy(S_very strictly) + (1/4) * Entropy(S_somewhat strictly) = 0.811
+Determine the best attribute for splitting: 
+	max{Gain(S,compliance with current hygiene measures)} = Gain(S,compliance with current hygiene measures) --> split at compliance with current hygiene measures
+Create the subtree:
+	Create the node compliance with current hygiene measures
+	Create a child node for every value of compliance with current hygiene measures:
+		pretty strictly:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create severe infection symptoms as the child node.
+			Create an edge from compliance with current hygiene measures to severe infection symptoms with the label pretty strictly.
+		not at all:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create severe infection symptoms as the child node.
+			Create an edge from compliance with current hygiene measures to severe infection symptoms with the label not at all.
+		very strictly:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create mild infection symptoms as the child node.
+			Create an edge from compliance with current hygiene measures to mild infection symptoms with the label very strictly.
+		somewhat strictly:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create severe infection symptoms as the child node.
+			Create an edge from compliance with current hygiene measures to severe infection symptoms with the label somewhat strictly.
+
+
+This is the approach for the creation of the subtree with compliance with current hygiene measures as the root.
+General information:
+	|S| = 6
+	remaining columns: ['do sports', 'compliance with current hygiene measures', 'infection symptoms']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		severe infection symptoms: 5
+		mild infection symptoms: 1
+	Calculate the entropy:
+		Entropy(S) = (5/6) * log_2(5/6) + (1/6) * log_2(1/6) = 0.65
+Calculate the information gain of all attributes:
+	do sports:
+		Calculate the entropy of all values of the attribute:
+			on a professional level:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 1
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_on a professional level) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+			regularly:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 2
+				Calculate the entropy:
+					Entropy(S_regularly) = (2/2) * log_2(2/2) = 0.0
+			not at all:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 2
+				Calculate the entropy:
+					Entropy(S_not at all) = (2/2) * log_2(2/2) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,do sports) = (2/6) * Entropy(S_on a professional level) + (2/6) * Entropy(S_regularly) + (2/6) * Entropy(S_not at all) = 0.317
+	compliance with current hygiene measures:
+		Calculate the entropy of all values of the attribute:
+			very strictly:
+				Count the occurrence of each target attribute value:
+					mild infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_very strictly) = (1/1) * log_2(1/1) = 0.0
+			not at all:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 3
+				Calculate the entropy:
+					Entropy(S_not at all) = (3/3) * log_2(3/3) = 0.0
+			pretty strictly:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_pretty strictly) = (1/1) * log_2(1/1) = 0.0
+			somewhat strictly:
+				Count the occurrence of each target attribute value:
+					severe infection symptoms: 1
+				Calculate the entropy:
+					Entropy(S_somewhat strictly) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,compliance with current hygiene measures) = (1/6) * Entropy(S_very strictly) + (3/6) * Entropy(S_not at all) + (1/6) * Entropy(S_pretty strictly) + (1/6) * Entropy(S_somewhat strictly) = 0.65
+Determine the best attribute for splitting: 
+	max{Gain(S,do sports), Gain(S,compliance with current hygiene measures)} = Gain(S,compliance with current hygiene measures) --> split at compliance with current hygiene measures
+Create the subtree:
+	Create the node compliance with current hygiene measures
+	Create a child node for every value of compliance with current hygiene measures:
+		very strictly:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create mild infection symptoms as the child node.
+			Create an edge from compliance with current hygiene measures to mild infection symptoms with the label very strictly.
+		not at all:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create severe infection symptoms as the child node.
+			Create an edge from compliance with current hygiene measures to severe infection symptoms with the label not at all.
+		pretty strictly:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create severe infection symptoms as the child node.
+			Create an edge from compliance with current hygiene measures to severe infection symptoms with the label pretty strictly.
+		somewhat strictly:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create severe infection symptoms as the child node.
+			Create an edge from compliance with current hygiene measures to severe infection symptoms with the label somewhat strictly.

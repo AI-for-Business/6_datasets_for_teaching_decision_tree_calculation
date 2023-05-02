@@ -1,0 +1,10 @@
+digraph G {
+	"eat at home 0" [label="eat at home"]
+	"Do I feel like cooking? " -> "eat at home 0" [label="yes"]
+	"eat at home 10" [label="eat at home"]
+	"any classes at the university today? 1" -> "eat at home 10" [label="no"]
+	"eat at the cafeteria 11" [label="eat at the cafeteria"]
+	"any classes at the university today? 1" -> "eat at the cafeteria 11" [label="yes"]
+	"any classes at the university today? 1" [label="any classes at the university today?"]
+	"Do I feel like cooking? " -> "any classes at the university today? 1" [label="no"]
+}

@@ -1,0 +1,115 @@
+General information:
+	|S| = 4
+	remaining columns: ['gym nearby?', 'Do I have a partner to train with?', 'Do I have gym home equipment?', 'gym vs. workout at home']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		gym: 3
+		workout at home: 1
+	Calculate the entropy:
+		Entropy(S) = (3/4) * log_2(3/4) + (1/4) * log_2(1/4) = 0.811
+Calculate the information gain of all attributes:
+	gym nearby?:
+		Calculate the entropy of all values of the attribute:
+			no:
+				Count the occurrence of each target attribute value:
+					gym: 1
+					workout at home: 1
+				Calculate the entropy:
+					Entropy(S_no) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+			yes:
+				Count the occurrence of each target attribute value:
+					gym: 2
+				Calculate the entropy:
+					Entropy(S_yes) = (2/2) * log_2(2/2) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,gym nearby?) = (2/4) * Entropy(S_no) + (2/4) * Entropy(S_yes) = 0.311
+	Do I have a partner to train with?:
+		Calculate the entropy of all values of the attribute:
+			no:
+				Count the occurrence of each target attribute value:
+					gym: 2
+					workout at home: 1
+				Calculate the entropy:
+					Entropy(S_no) = (2/3) * log_2(2/3) + (1/3) * log_2(1/3) = 0.918
+			yes:
+				Count the occurrence of each target attribute value:
+					gym: 1
+				Calculate the entropy:
+					Entropy(S_yes) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,Do I have a partner to train with?) = (3/4) * Entropy(S_no) + (1/4) * Entropy(S_yes) = 0.123
+	Do I have gym home equipment?:
+		Calculate the entropy of all values of the attribute:
+			no:
+				Count the occurrence of each target attribute value:
+					gym: 2
+				Calculate the entropy:
+					Entropy(S_no) = (2/2) * log_2(2/2) = 0.0
+			yes:
+				Count the occurrence of each target attribute value:
+					workout at home: 1
+					gym: 1
+				Calculate the entropy:
+					Entropy(S_yes) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+		Calculate the information gain for the attribute:
+			Gain(S,Do I have gym home equipment?) = (2/4) * Entropy(S_no) + (2/4) * Entropy(S_yes) = 0.311
+Determine the best attribute for splitting: 
+	max{Gain(S,gym nearby?), Gain(S,Do I have a partner to train with?), Gain(S,Do I have gym home equipment?)} = Gain(S,gym nearby?) --> split at gym nearby?
+Create the subtree:
+	Create the node gym nearby?
+	Create a child node for every value of gym nearby?:
+		no:
+			There is more than one target attribute value left (i. e. we have no perfect entropy) and we can perform an additional split.
+			Split at the attribute which leads to the highest information gain. --> Create Do I have gym home equipment? as the child node.
+			Create an edge from gym nearby? to Do I have gym home equipment? with the label no.
+		yes:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create gym as the child node.
+			Create an edge from gym nearby? to gym with the label yes.
+
+
+This is the approach for the creation of the subtree with Do I have gym home equipment? as the root.
+General information:
+	|S| = 2
+	remaining columns: ['Do I have a partner to train with?', 'Do I have gym home equipment?', 'gym vs. workout at home']
+Calculate the entropy of the subset:
+	Count the occurrence of each target attribute value:
+		gym: 1
+		workout at home: 1
+	Calculate the entropy:
+		Entropy(S) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+Calculate the information gain of all attributes:
+	Do I have a partner to train with?:
+		Calculate the entropy of all values of the attribute:
+			no:
+				Count the occurrence of each target attribute value:
+					gym: 1
+					workout at home: 1
+				Calculate the entropy:
+					Entropy(S_no) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+		Calculate the information gain for the attribute:
+			Gain(S,Do I have a partner to train with?) = (2/2) * Entropy(S_no) = 0.0
+	Do I have gym home equipment?:
+		Calculate the entropy of all values of the attribute:
+			no:
+				Count the occurrence of each target attribute value:
+					gym: 1
+				Calculate the entropy:
+					Entropy(S_no) = (1/1) * log_2(1/1) = 0.0
+			yes:
+				Count the occurrence of each target attribute value:
+					workout at home: 1
+				Calculate the entropy:
+					Entropy(S_yes) = (1/1) * log_2(1/1) = 0.0
+		Calculate the information gain for the attribute:
+			Gain(S,Do I have gym home equipment?) = (1/2) * Entropy(S_no) + (1/2) * Entropy(S_yes) = 1.0
+Determine the best attribute for splitting: 
+	max{Gain(S,Do I have a partner to train with?), Gain(S,Do I have gym home equipment?)} = Gain(S,Do I have gym home equipment?) --> split at Do I have gym home equipment?
+Create the subtree:
+	Create the node Do I have gym home equipment?
+	Create a child node for every value of Do I have gym home equipment?:
+		no:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create gym as the child node.
+			Create an edge from Do I have gym home equipment? to gym with the label no.
+		yes:
+			There is only target attribute value left (i. e. we have perfect entropy). --> Create workout at home as the child node.
+			Create an edge from Do I have gym home equipment? to workout at home with the label yes.

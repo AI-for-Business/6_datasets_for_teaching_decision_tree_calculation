@@ -1,0 +1,14 @@
+digraph G {
+	"is healthy 0" [label="is healthy"]
+	"diet " -> "is healthy 0" [label="vegan"]
+	"is healthy 1" [label="is healthy"]
+	"diet " -> "is healthy 1" [label="vegetarian"]
+	"is unhealthy 20" [label="is unhealthy"]
+	"smoking 2" -> "is unhealthy 20" [label="regular smoker"]
+	"is healthy 21" [label="is healthy"]
+	"smoking 2" -> "is healthy 21" [label="nonsmoker"]
+	"is unhealthy 22" [label="is unhealthy"]
+	"smoking 2" -> "is unhealthy 22" [label="casual smoker"]
+	"smoking 2" [label="smoking"]
+	"diet " -> "smoking 2" [label="with meat"]
+}

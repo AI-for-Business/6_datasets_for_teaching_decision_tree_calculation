@@ -1,0 +1,26 @@
+do sports,weight,stress level,age,diet,risk for heart attack
+regularly,normal weight,high,30-50,unhealthy,high risk for heart attack
+irregularly,overweight,high,<30,unhealthy,high risk for heart attack
+not at all,normal weight,high,>50,healthy,low risk for heart attack
+regularly,overweight,medium,>50,healthy,low risk for heart attack
+irregularly,underweight,medium,30-50,unhealthy,low risk for heart attack
+not at all,overweight,medium,<30,healthy,low risk for heart attack
+not at all,normal weight,high,<30,unhealthy,high risk for heart attack
+irregularly,overweight,high,30-50,healthy,low risk for heart attack
+regularly,overweight,low,>50,healthy,low risk for heart attack
+not at all,normal weight,high,30-50,healthy,high risk for heart attack
+not at all,normal weight,low,>50,neutral,low risk for heart attack
+not at all,normal weight,medium,<30,neutral,low risk for heart attack
+irregularly,normal weight,low,<30,healthy,low risk for heart attack
+not at all,overweight,medium,30-50,unhealthy,low risk for heart attack
+irregularly,overweight,high,<30,unhealthy,high risk for heart attack
+regularly,normal weight,high,30-50,unhealthy,high risk for heart attack
+regularly,normal weight,high,<30,neutral,low risk for heart attack
+regularly,normal weight,medium,<30,unhealthy,low risk for heart attack
+not at all,underweight,medium,30-50,healthy,low risk for heart attack
+not at all,normal weight,medium,<30,healthy,low risk for heart attack
+not at all,overweight,medium,30-50,neutral,low risk for heart attack
+not at all,overweight,low,<30,neutral,low risk for heart attack
+not at all,overweight,medium,>50,unhealthy,high risk for heart attack
+regularly,normal weight,low,>50,healthy,low risk for heart attack
+irregularly,normal weight,high,30-50,neutral,high risk for heart attack

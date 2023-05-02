@@ -1,0 +1,27 @@
+General information:
+	|S| = 5
+	remaining columns: ['Do I feel like cooking?', 'any classes at the university today?', 'where to eat?']
+Entropy(S) = (4/5) * log_2(4/5) + (1/5) * log_2(1/5) = 0.722
+information gain calculation:
+	Do I feel like cooking?:
+		Entropy(S_yes) = (3/3) * log_2(3/3) = 0.0
+		Entropy(S_no) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+		Gain(S,Do I feel like cooking?) = (3/5) * Entropy(S_yes) + (2/5) * Entropy(S_no) = 0.322
+	any classes at the university today?:
+		Entropy(S_no) = (3/3) * log_2(3/3) = 0.0
+		Entropy(S_yes) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+		Gain(S,any classes at the university today?) = (3/5) * Entropy(S_no) + (2/5) * Entropy(S_yes) = 0.322
+max{Gain(S,Do I feel like cooking?), Gain(S,any classes at the university today?)} = Gain(S,Do I feel like cooking?) --> split at Do I feel like cooking?
+
+
+root = any classes at the university today?
+General information:
+	|S| = 2
+	remaining columns: ['any classes at the university today?', 'where to eat?']
+Entropy(S) = (1/2) * log_2(1/2) + (1/2) * log_2(1/2) = 1.0
+information gain calculation:
+	any classes at the university today?:
+		Entropy(S_no) = (1/1) * log_2(1/1) = 0.0
+		Entropy(S_yes) = (1/1) * log_2(1/1) = 0.0
+		Gain(S,any classes at the university today?) = (1/2) * Entropy(S_no) + (1/2) * Entropy(S_yes) = 1.0
+max{Gain(S,any classes at the university today?)} = Gain(S,any classes at the university today?) --> split at any classes at the university today?

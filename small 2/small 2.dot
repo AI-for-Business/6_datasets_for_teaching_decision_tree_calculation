@@ -1,0 +1,10 @@
+digraph G {
+	"gym 00" [label="gym"]
+	"Do I have gym home equipment? 0" -> "gym 00" [label="no"]
+	"workout at home 01" [label="workout at home"]
+	"Do I have gym home equipment? 0" -> "workout at home 01" [label="yes"]
+	"Do I have gym home equipment? 0" [label="Do I have gym home equipment?"]
+	"gym nearby? " -> "Do I have gym home equipment? 0" [label="no"]
+	"gym 1" [label="gym"]
+	"gym nearby? " -> "gym 1" [label="yes"]
+}
