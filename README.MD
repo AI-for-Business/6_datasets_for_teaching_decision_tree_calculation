@@ -13,7 +13,10 @@ No specific hard- or software is required. No licenses are required. You need to
 CSV files.
 
 # Copyright / License
-This work is licensed under a Creative Commons Attribution 4.0 International License (CC BY-NC-SA 4.0). As such:
+This work is licensed under a Creative Commons Attribution 4.0 International License (CC BY-NC-SA 4.0).\
+![](CC-BY-NC-SA.jpg)\
+ 
+As such:
 
 ### You are free to:
 * Share — copy and redistribute the material in any medium or format
