@@ -13,8 +13,9 @@ No specific hard- or software is required. No licenses are required. You need to
 CSV files.
 
 # Copyright / License
-This work is licensed under a Creative Commons Attribution 4.0 International License (CC BY-NC-SA 4.0).\
-![](CC-BY-NC-SA.jpg)\
+This work is licensed under a Creative Commons Attribution 4.0 International License (CC BY-NC-SA 4.0).
+
+![](CC-BY-NC-SA.jpg)
  
 As such:
 
@@ -36,9 +37,13 @@ As such:
 {Feedback CZ}
 
 # Contact / About us
-* You can find all our repositories [here](https://github.com/orgs/AI-for-Business/repositories).
-* You can find the homepage of the project ABBA: AI for Business | Business for AI [here](https://abba-project.de/).
+* You can find all of our repositories [here](https://github.com/orgs/AI-for-Business/repositories).
+* You can find the homepage of the project ABBA: **A**I for **B**usiness | **B**usiness for **A**I
+[here](https://abba-project.de/).
 * You can contact the authors by sending us an [email](mailto:abba-services@fim-rc.de).
 
 # Author's note:
-{Individual free space}
+These datasets have been created using ABBA's
+[Decision Tree Teaching Assistant](https://github.com/AI-for-Business/UBT_YZ_DeTTA) (abbreviated DeTTA), which has
+also been published under the CC-BY-NC-SA license. With DeTTA you can generate an infinite amount datasets of
+adjustable size and complexity along step-by-step calculations and solution visualizations.
