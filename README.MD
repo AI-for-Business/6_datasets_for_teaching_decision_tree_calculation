@@ -31,10 +31,16 @@ As such:
 
 
 # Authors, Citation
-{Feedback CZ}
+Yorck Zisgen {0000-0002-9646-2829}, University of Bayreuth, Germany
+
+Cite as:\
+*Decision Tree Datasets by Yorck Zisgen, licensed under
+[CC-BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt),
+via https://github.com/AI-for-Business/6_datasets_for_teaching_decision_tree_calculation*
+
 
 # DOI - Code
-{Feedback CZ}
+[![DOI](https://zenodo.org/badge/635332106.svg)](https://zenodo.org/doi/10.5281/zenodo.10572369)
 
 # Contact / About us
 * You can find all of our repositories [here](https://github.com/orgs/AI-for-Business/repositories).
